@@ -28,7 +28,7 @@ export default function Universe() {
       )}
 
       <Routes>
-        <Route path="story" element={<Story />} />
+        <Route path="story/*" element={<Story />} />
         <Route path="character" element={<Character />} />
         <Route path="class" element={<Class />} />
         <Route path="world" element={<World />} />
