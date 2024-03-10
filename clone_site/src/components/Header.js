@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 
-export default function Header() {
+export default function Header({localStorageId, setLocalStorageId}) {
   const [login, setLogin] = useState(false);
   const [inputvlaueCheck, setInputvlaueCheck] = useState(false);
   
   const [id,setId] = useState('')
   const [password,setPassword] = useState('')
-  const isLogin = localStorage.getItem("ID");
-  const [loginCheck,setLoginCheck] = useState(isLogin)
+  const [loginCheck,setLoginCheck] = useState(localStorageId)
   
   const loginHandler = () => {
     if (id && password) {
       localStorage.setItem("ID", id);
+      setLocalStorageId(id)
       setLogin(false);
       setLoginCheck(true);
       setInputvlaueCheck(false);
@@ -24,6 +24,7 @@ export default function Header() {
   };
 
   const logOut = () => {
+    setLocalStorageId('')
     localStorage.removeItem('ID')
     setLoginCheck(false);
     setId(undefined)
@@ -34,11 +35,11 @@ export default function Header() {
   return (
     <div className="header">
       <div className="header_inner">
-        <Link to="">STUDY SITE</Link>
+        <Link to="/">STUDY SITE</Link>
         <ul className="category">
           {loginCheck ? (
             <>
-            <li className="member">HI, {isLogin}!</li>
+            <li className="member">HI, {localStorageId}!</li>
             <li className="logout" onClick={logOut}>LOGOUT</li>
             </>
           ) : (
